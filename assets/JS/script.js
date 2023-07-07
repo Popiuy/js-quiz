@@ -45,10 +45,10 @@ function checkAnswer(selectedAnswer) {
 
   if (userAnswer === currentQuestion.correctA) {
     feedbackContainer.textContent = "Correct answer!";
-    scores[currentQuestionIndex] = 1; // Update the score at the current question index
+    scores[currentQuestionIndex] = 1; 
   } else {
     feedbackContainer.textContent = "Incorrect answer!";
-    scores[currentQuestionIndex] = 0; // Update the score at the current question index
+    scores[currentQuestionIndex] = 0; 
   }
 
   currentQuestionIndex++;
@@ -60,7 +60,7 @@ function checkAnswer(selectedAnswer) {
     var totalScore = scores.reduce((acc, cur) => acc + cur, 0);
     feedbackContainer.textContent = "Quiz finished! Your total score: " + totalScore + "/2";
     updateScore(totalScore);
-    clearInterval(timer); // Stop the timer
+    clearInterval(timer); 
   }
 
   localStorage.setItem("scores", JSON.stringify(scores));
@@ -115,7 +115,7 @@ function resetQuiz() {
 
   localStorage.removeItem("feedbackContent");
 
-  startTimer(); // Start the timer again
+  startTimer(); 
 }
 
 var storedFeedbackContent = localStorage.getItem("feedbackContent");
@@ -148,7 +148,6 @@ resetButton.addEventListener("click", function () {
   showQuestion();
 });
 
-// Update the score container when the page loads
 var storedScores = localStorage.getItem("scores");
 if (storedScores) {
   scores = JSON.parse(storedScores);
@@ -157,9 +156,8 @@ var totalScore = scores.reduce((acc, cur) => acc + cur, 0);
 updateScore(totalScore);
 
 function updateScore(totalScore) {
-  var maxScore = 2; // Set the maximum score
-  var percentage = (totalScore / maxScore) * 100; // Calculate the percentage
+  var maxScore = 2; 
+  var percentage = (totalScore / maxScore) * 100; 
 
-  // Display the score and percentage
   scoreContainer.textContent = "Total Score: " + totalScore + "/" + maxScore + " (" + percentage + "%)";
 }
