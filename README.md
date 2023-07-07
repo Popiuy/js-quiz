@@ -11,7 +11,13 @@
 
 ## Description 
 
-
+This project is a quiz game using javascript.
+It creates a quiz interface with questions and answers, keeps track of score, and includes a timer to track how long it takes you.
+Using queryselector we select html elements and assigns them to variables.
+We have an array holding all of our questions and answers, the javascript implements these values.
+When the game is started everything but the header and the score box are hidden and the question container is shown
+event listeners were added to the buttons so that the functions associated will be called on.
+Overall, this code sets up a quiz game, handles user interaction, and provides feedback and scoring functionality.
 
 ### Links
 github:[https://github.com/Popiuy/js-quiz](https://github.com/Popiuy/js-quiz)
