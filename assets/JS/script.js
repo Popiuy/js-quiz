@@ -18,6 +18,7 @@ var quizQuestions = [
 
 var currentQuestionIndex = 0;
 var currentQuestion = quizQuestions[currentQuestionIndex];
+var currentScore = 0;
 var scores = [];
 
 var timer;
@@ -46,10 +47,9 @@ function checkAnswer(selectedAnswer) {
 
   if (userAnswer === currentQuestion.correctA) {
     feedbackContainer.textContent = "Correct answer!";
-    scores[currentQuestionIndex] = 1;
+    currentScore += 1;
   } else {
     feedbackContainer.textContent = "Incorrect answer!";
-    scores[currentQuestionIndex] = 0;
     timerCount -= 5;
   }
 
@@ -79,7 +79,7 @@ function startTimer() {
 }
 
 function handleEndOfGame() {
-  var totalScore = scores.reduce((acc, cur) => acc + cur, 0);
+  var totalScore = Math.min(currentScore, 2);
 
   var initials = prompt("Enter your initials for the score:");
   if (initials) {
@@ -96,11 +96,24 @@ function handleEndOfGame() {
   feedbackContainer.textContent = initials + " Quiz finished! Your total score: " + totalScore + "/2";
 }
 
+function loadScoresFromStorage() {
+  var scoresData = localStorage.getItem("scoresData");
+  var scoresArray = scoresData ? JSON.parse(scoresData) : [];
+
+  scoresArray.forEach(function (scoreData) {
+    var scoreText = scoreData.initials + " - " + scoreData.score + "/2";
+    var scoreEntry = document.createElement("li");
+    scoreEntry.textContent = scoreText;
+    scoreList.appendChild(scoreEntry);
+  });
+}
+
 function resetQuiz() {
   clearInterval(timer);
   currentQuestionIndex = 0;
   currentQuestion = quizQuestions[currentQuestionIndex];
   timerCount = 30;
+  currentScore = 0;
 
   shownQuestion.textContent = "";
   button1.textContent = "";
@@ -136,3 +149,13 @@ resetButton.addEventListener("click", function () {
   showQuestion();
   startTimer();
 });
+
+loadScoresFromStorage();
+
+var resetScoresButton = document.querySelector(".reset-scores-button");
+resetScoresButton.addEventListener("click", resetScores);
+
+function resetScores() {
+  localStorage.removeItem("scoresData");
+  scoreList.innerHTML = "";
+}
