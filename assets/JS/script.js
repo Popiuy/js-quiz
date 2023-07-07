@@ -20,7 +20,7 @@ var currentQuestion = quizQuestions[currentQuestionIndex];
 var scores = [];
 
 var timer;
-var timerCount = 60;
+var timerCount = 30;
 
 function gameStart() {
   startButton.classList.add("hide");
