@@ -8,44 +8,38 @@
   </head>
   <body>
     <header>
-      <div class= "large-font">JS Quiz Game</div>
+      <div class="large-font">JS Quiz Game</div>
       <button class="start-button">Start</button>
     </header>
     
     <main>
       <section class="quiz-game">
-       <h1>Get ready!</h1>
+        <h1>Get ready!</h1>
       </section>
 
-  <section class="quiz-container hide">
-
-    <div class="questions">
-      
-    </div>
-    <ul class="answers">
-      <button id = "button1"></button>
-      <button id = "button2"></button>
-      <button id = "button3"></button>
-      <button id = "button4"></button>
-    </ul>
-
-    </section>
-      <section>
-        <div class="card results">
-          <div class = "score-container">
-          <div>
-          <h2>Score <span class="score">0 </span> </h2>
+      <section class="quiz-container hide">
+        <div class="questions">
           
         </div>
-          <button class="reset-button">Reset Score</button>
-      </div>
-          <div class= "card timer">
-            
-            <div class="timer-count">60</div>
-            <h3>seconds remaining</h3>
+        <ul class="answers">
+          <li><button id="button1"></button></li>
+          <li><button id="button2"></button></li>
+          <li><button id="button3"></button></li>
+          <li><button id="button4"></button></li>
+        </ul>
+      </section>
+
+      <section>
+        <div class="card results">
+          <div class="score-container">
+            <h2>results <span class="score"></span></h2>
           </div>
-        
-          </div>
+          <div class="feedback-container"></div> 
+          <button class="reset-button">Reset Quiz</button>
+        </div>
+        <div>
+          <div class="timer-count"></div>
+          <h3>seconds remaining</h3>
         </div>
       </section>
     </main>
