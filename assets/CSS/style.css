@@ -19,7 +19,7 @@
     margin-top: 20px;
   }
   
-  .win-loss-container {
+  .high-score-container {
     display: flex;
     justify-content: space-between;
     margin-top: 16px;
@@ -48,6 +48,10 @@
     background: #13293d;
     color: #fff;
     border-bottom:30px #879274;
+  }
+  
+  .hide {
+    display: none;
   }
   
   main {

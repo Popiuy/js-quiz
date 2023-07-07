@@ -15,5 +15,5 @@
 
 ### Links
 github:[https://github.com/Popiuy/js-quiz](https://github.com/Popiuy/js-quiz)
-Deployed Webpage:[](h)
-Screenshot: (![js-quizscreenshot]())
+Deployed Webpage:[https://popiuy.github.io/js-quiz/](https://popiuy.github.io/js-quiz/)
+Screenshot: (![JS Quiz screenshot](https://github.com/Popiuy/js-quiz/assets/137010790/1c256d5e-7c5e-4628-9e26-051f545b6cdd))

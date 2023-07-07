@@ -11,15 +11,25 @@
       <div class= "large-font">JS Quiz Game</div>
       <button class="start-button">Start</button>
     </header>
-
+    
     <main>
-      <section>
-        <div class="quiz game">
-          <div class="large-font word-blanks"></div>
-          <h1>Get ready!</h1>
-        </div>
+      <section class="quiz-game">
+       <h1>Get ready!</h1>
       </section>
 
+  <section class="quiz-container hide">
+
+    <div class="questions">
+      
+    </div>
+    <ul class="answers">
+      <button id = "button1"></button>
+      <button id = "button2"></button>
+      <button id = "button3"></button>
+      <button id = "button4"></button>
+    </ul>
+
+    </section>
       <section>
         <div class="card results">
           <div class = "score-container">
@@ -30,8 +40,8 @@
           <button class="reset-button">Reset Score</button>
       </div>
           <div class= "card timer">
-            <div class = "timer-text">
-            <div class="large-font timer-count">10</div>
+            
+            <div class="timer-count">60</div>
             <h3>seconds remaining</h3>
           </div>
         
