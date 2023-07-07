@@ -9,9 +9,10 @@ var button4 = document.querySelector("#button4");
 var feedbackContainer = document.querySelector(".feedback-container");
 var scoreContainer = document.querySelector(".score-container");
 var timerCountElement = document.querySelector(".timer-count");
+var scoreList = document.querySelector(".score-list");
 
 var quizQuestions = [
-  { qtext: "What is Jermome's favorite cat name?", answers: ["Farley", "Taco", "Fish", "Pancake"], correctA: "Farley" },
+  { qtext: "What is Jerome's favorite cat name?", answers: ["Farley", "Taco", "Fish", "Pancake"], correctA: "Farley" },
   { qtext: "How do they get the fortune in the fortune cookie?", answers: ["Stuff it", "Inject it", "Fold it", "Magic?"], correctA: "Fold it" }
 ];
 
@@ -45,10 +46,11 @@ function checkAnswer(selectedAnswer) {
 
   if (userAnswer === currentQuestion.correctA) {
     feedbackContainer.textContent = "Correct answer!";
-    scores[currentQuestionIndex] = 1; 
+    scores[currentQuestionIndex] = 1;
   } else {
     feedbackContainer.textContent = "Incorrect answer!";
-    scores[currentQuestionIndex] = 0; 
+    scores[currentQuestionIndex] = 0;
+    timerCount -= 5;
   }
 
   currentQuestionIndex++;
@@ -57,14 +59,9 @@ function checkAnswer(selectedAnswer) {
     currentQuestion = quizQuestions[currentQuestionIndex];
     showQuestion();
   } else {
-    var totalScore = scores.reduce((acc, cur) => acc + cur, 0);
-    feedbackContainer.textContent = "Quiz finished! Your total score: " + totalScore + "/2";
-    updateScore(totalScore);
-    clearInterval(timer); 
+    clearInterval(timer);
+    handleEndOfGame();
   }
-
-  localStorage.setItem("scores", JSON.stringify(scores));
-  localStorage.setItem("feedbackContent", feedbackContainer.textContent);
 }
 
 function startTimer() {
@@ -83,18 +80,26 @@ function startTimer() {
 
 function handleEndOfGame() {
   var totalScore = scores.reduce((acc, cur) => acc + cur, 0);
-  feedbackContainer.textContent = "Quiz finished! Your total score: " + totalScore + "/2";
-  updateScore(totalScore);
-  clearInterval(timer);
-  localStorage.setItem("scores", JSON.stringify(scores));
-  localStorage.setItem("feedbackContent", feedbackContainer.textContent);
+
+  var initials = prompt("Enter your initials for the score:");
+  if (initials) {
+    var scoreText = initials + " - " + totalScore + "/2";
+    var scoreEntry = document.createElement("li");
+    scoreEntry.textContent = scoreText;
+    scoreList.appendChild(scoreEntry);
+    var scoresData = localStorage.getItem("scoresData");
+    var scoresArray = scoresData ? JSON.parse(scoresData) : [];
+    scoresArray.push({ initials: initials, score: totalScore });
+    localStorage.setItem("scoresData", JSON.stringify(scoresArray));
+  }
+
+  feedbackContainer.textContent = initials + " Quiz finished! Your total score: " + totalScore + "/2";
 }
 
 function resetQuiz() {
   clearInterval(timer);
   currentQuestionIndex = 0;
   currentQuestion = quizQuestions[currentQuestionIndex];
-  scores = [];
   timerCount = 30;
 
   shownQuestion.textContent = "";
@@ -104,23 +109,6 @@ function resetQuiz() {
   button4.textContent = "";
   feedbackContainer.textContent = "";
   timerCountElement.textContent = timerCount;
-
-  var storedScores = localStorage.getItem("scores");
-  if (storedScores) {
-    scores = JSON.parse(storedScores);
-  }
-
-  var totalScore = scores.reduce((acc, cur) => acc + cur, 0);
-  scoreContainer.textContent = "Total Score: " + totalScore + "/2";
-
-  localStorage.removeItem("feedbackContent");
-
-  startTimer(); 
-}
-
-var storedFeedbackContent = localStorage.getItem("feedbackContent");
-if (storedFeedbackContent) {
-  feedbackContainer.textContent = storedFeedbackContent;
 }
 
 button1.addEventListener("click", function () {
@@ -146,18 +134,5 @@ resetButton.addEventListener("click", resetQuiz);
 resetButton.addEventListener("click", function () {
   currentQuestion = quizQuestions[0];
   showQuestion();
+  startTimer();
 });
-
-var storedScores = localStorage.getItem("scores");
-if (storedScores) {
-  scores = JSON.parse(storedScores);
-}
-var totalScore = scores.reduce((acc, cur) => acc + cur, 0);
-updateScore(totalScore);
-
-function updateScore(totalScore) {
-  var maxScore = 2; 
-  var percentage = (totalScore / maxScore) * 100; 
-
-  scoreContainer.textContent = "Total Score: " + totalScore + "/" + maxScore + " (" + percentage + "%)";
-}
